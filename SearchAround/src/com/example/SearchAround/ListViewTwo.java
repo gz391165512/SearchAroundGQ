@@ -89,6 +89,7 @@ public class ListViewTwo extends Activity {
                 View view = getLayoutInflater().inflate(R.layout.lvonecontent,parent,false);     //!!!!!!!!
                 TextView textView = (TextView) view.findViewById(R.id.lvOneTextView);
                 Button button = (Button) view.findViewById(R.id.lvOneButton);
+                view.setBackground(getResources().getDrawable(R.drawable.listbg));
                 textView.setText(lvTwoText[position]);
                 textView.setTextColor(0xFF000000);
                 textView.setTextSize(16);

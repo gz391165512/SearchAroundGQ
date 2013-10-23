@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#ffffff"
+        >
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_title_bar"
+            >
+        <ImageButton
+                android:id="@+id/searchBackIbt"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/back_button_bg"
+                android:src="@drawable/ic_nav_back"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                >
+        </ImageButton>
+        <LinearLayout  android:layout_width="fill_parent" android:layout_gravity="center_vertical" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
+            <EditText
+                    android:id="@+id/searchEditText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    >
+            </EditText>
+        </LinearLayout>
+
+        <ImageButton
+                android:id="@+id/searchIbt"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/back_button_bg"
+                android:src="@drawable/abs__ic_search"
+                android:layout_marginRight="5dp"
+                >
+        </ImageButton>
+
+    </LinearLayout>
+    <ListView android:layout_width="fill_parent" android:layout_height="fill_parent" android:id="@+id/lvSearch"
+              android:divider="#000000" android:dividerHeight="1dp"></ListView>
+</LinearLayout>

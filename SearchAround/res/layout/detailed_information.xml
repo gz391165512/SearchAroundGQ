@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#ffffff"
+        >
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_title_bar"
+            >
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
+                >
+            <ImageButton
+                    android:id="@+id/detailBackIbt"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/back_button_bg"
+                    android:src="@drawable/ic_nav_back"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    >
+            </ImageButton>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
+                >
+            <TextView
+                    android:id="@+id/text_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="详细信息"
+                    android:textColor="#ffffff"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    >
+            </TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                >
+
+            <ImageButton
+                    android:id="@+id/arrows_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/back_button_bg"
+                    android:src="@drawable/ic_action_route"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    >
+            </ImageButton>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <RadioGroup android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                    <RadioButton
+                            android:drawableLeft="@drawable/u41_normal"
+                            android:button="@null"
+                            android:id="@+id/detailFoot"
+                            android:drawablePadding="-30dp"
+                            android:padding="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:background="@drawable/radiobutton"
+                            android:text="步 行"
+                            android:textColor="#000000"
+                            android:textSize="14dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            >
+                    </RadioButton>
+
+
+                <RadioButton
+                        android:button="@null"
+                        android:id="@+id/detailBus"
+                        android:drawableLeft="@drawable/bus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        android:padding="10dp"
+                        android:layout_weight="1"
+                        android:text="公 交"
+                        android:drawablePadding="-30dp"
+                        android:background="@drawable/radiobutton"
+                        android:textColor="#000000"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+
+                        >
+                </RadioButton>
+
+                <RadioButton
+                        android:button="@null"
+                        android:id="@+id/detailCar"
+                        android:padding="10dp"
+                        android:drawableLeft="@drawable/u49_normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        android:drawablePadding="-30dp"
+                        android:layout_weight="1"
+                        android:text="驾 车"
+                        android:background="@drawable/radiobutton"
+                        android:textColor="#000000"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        >
+                </RadioButton>
+            </RadioGroup>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+            android:id="@+id/detailed_map"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"  android:layout_weight="1"
+            >
+        <RelativeLayout android:layout_width="fill_parent"  android:layout_height="fill_parent">
+            <com.baidu.mapapi.map.MapView android:layout_width="fill_parent" android:layout_height="fill_parent"
+                                          android:id="@+id/bdMapDetail">
+            </com.baidu.mapapi.map.MapView>
+            <TextView
+                    android:id="@+id/detailTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#70000000"
+                    android:text="全程约80.0m，耗时约10分钟"
+                    android:layout_alignParentTop="true"
+                    android:textColor="#ffffff"
+                    ></TextView>
+            <TextView
+                    android:id="@+id/detailAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#70000000"
+                    android:textColor="#ffffff"
+                    android:layout_alignParentBottom="true"
+                    >
+            </TextView>
+            <TextView
+                    android:id="@+id/detailName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#70000000"
+                    android:textSize="17dp"
+                    android:textColor="#ffffff"
+                    android:layout_above="@id/detailAddress"
+                    >
+            </TextView>
+    </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="#10000000"
+            android:gravity="center_vertical"
+            >
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_phone"
+                android:layout_marginLeft="10dp" >
+        </ImageView>
+        <TextView
+                android:id="@+id/detailPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textColor="#000000"
+                ></TextView>
+
+    </LinearLayout>
+
+</LinearLayout>

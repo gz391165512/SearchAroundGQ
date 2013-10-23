@@ -2,6 +2,7 @@ package com.example.SearchAround;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +29,8 @@ public class MyActivity extends Activity {
     private ImageButton locationButton;
     private TextView addressTextView;
     private Map<String,Object> map = new HashMap<String, Object>();//接受参数
+    private ImageButton searchIbt;
+    private ImageButton aboutIbt;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,22 @@ public class MyActivity extends Activity {
         setContentView(R.layout.main);
         locationButton = (ImageButton) findViewById(R.id.locationButton);
         addressTextView = (TextView) findViewById(R.id.addressTextView);
+        searchIbt = (ImageButton) findViewById(R.id.searchImageButton);
+        aboutIbt = (ImageButton) findViewById(R.id.about_button);
+        aboutIbt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyActivity.this,About.class);
+                startActivity(intent);
+            }
+        });
+        searchIbt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyActivity.this,Search.class);
+                startActivity(intent);
+            }
+        });
         locationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +90,7 @@ public class MyActivity extends Activity {
             public View getView(int position, View convertView, ViewGroup parent) {
                 final int positionTemp = position;
                 View view = getLayoutInflater().inflate(R.layout.lvonecontent,parent,false);     //!!!!!!!!
+                view.setBackground(getResources().getDrawable(R.drawable.listbg));
                 TextView textView = (TextView) view.findViewById(R.id.lvOneTextView);
                 textView.setText(lvOneText[position]);
                 textView.setTextColor(0xFF000000);

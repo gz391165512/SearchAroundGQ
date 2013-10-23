@@ -32,23 +32,50 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 public class JsonUtil {
-    public static String address;
+    public static String address = null;
     public static double latitude;
     public static double longitude;
-    public String getJson(String query,double Longitude,double Latitude,int page)throws IOException {
+    public String getJson(String query,double Longitude,double Latitude,int page,int scope)throws IOException {
         Log.e("------------",Longitude+"");
         Log.e("------------",Latitude+"");
-        String url = "https://api.weibo.com/2/location/pois/search/by_geo.json?q=" + query +"&coordinate=" +Longitude + "%2C" + Latitude +"&access_token=2.00JL99ME8Di7lC2a43a110fa0SjrQP&count=20&page=" + page ;
+        String url = "https://api.weibo.com/2/location/pois/search/by_geo.json?q=" + query +"&coordinate=" +Longitude + "%2C" + Latitude +"&access_token=2.00JL99ME8Di7lC2a43a110fa0SjrQP&count=20&page=" + page + "&range=" + scope ;
         HttpGet httpGet = new HttpGet(url);
         HttpClient httpClient = new DefaultHttpClient();
         HttpResponse httpResponse = httpClient.execute(httpGet);
         String jsonString = EntityUtils.toString(httpResponse.getEntity(),"UTF-8");
         return jsonString;
     }
+    public List<HashMap<String,Object>> parseJsonTwo(String jsonString) throws JSONException{
+        JSONObject jsonObject = new JSONObject(jsonString);
+        String total = jsonObject.optString("total");
+        JSONArray jsonArray = jsonObject.optJSONArray("poilist");
+        HashMap<String,Object> hashMapTotal = new HashMap<String, Object>();
+        hashMapTotal.put("total",total);
+        List <HashMap<String,Object>> list = new ArrayList<HashMap<String, Object>>();
+        list.add(hashMapTotal);
+        if(jsonArray == null){
+            return null;
+        }
+        for(int i=0;i<jsonArray.length();i++){
+            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+            HashMap<String,Object> hashMap = new HashMap<String, Object>();
+            hashMap.put("longitude",jsonObject1.optString("x"));
+            hashMap.put("latitude",jsonObject1.optString("y"));
+            hashMap.put("address",jsonObject1.optString("address"));
+            hashMap.put("name",jsonObject1.optString("name"));
+            hashMap.put("tel",jsonObject1.optString("tel"));
+            hashMap.put("distance",jsonObject1.optString("distance") + "m");
+            list.add(hashMap);
+        }
+        return list;
+    }
     public List<HashMap<String,Object>> parseJson(String jsonString) throws JSONException{
         JSONObject jsonObject = new JSONObject(jsonString);
         JSONArray jsonArray = jsonObject.optJSONArray("poilist");
         List <HashMap<String,Object>> list = new ArrayList<HashMap<String, Object>>();
+        if(jsonArray == null){
+           return null;
+        }
         for(int i=0;i<jsonArray.length();i++){
             HashMap<String,Object> hashMap = new HashMap<String, Object>();
             JSONObject jsonObject1 = jsonArray.getJSONObject(i);
@@ -71,7 +98,6 @@ public class JsonUtil {
         return list;
     }
     public void getMyLocation(Context context, final GetMyLocationCallback getMyLocationCallback) {
-        final String [] returnArr = new String[3];
         LocationClientOption option = new LocationClientOption();
         option.setCoorType("bd09ll");
         option.setAddrType("all");

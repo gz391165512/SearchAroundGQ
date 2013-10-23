@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -37,12 +38,13 @@ public class MessageShow extends Activity {
     private ImageButton changeBtn;
     private TextView messageTextView;
     private LinearLayout footView;
-    private SimpleAdapter simpleAdapter;
+    private MySimpleAdapter simpleAdapter;
     private Spinner spinner;
     private String[] objects = new String[]{"1000m以内", "2000m以内", "3000m以内","4000m以内","5000m以内"};
     private Boolean flag = true;//开关是否是加载adapter
     private double Latitude;
     private double Longitude;
+    private String scope;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +70,7 @@ public class MessageShow extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(MessageShow.this,MapShow.class);
                 intent.putExtra("query",query);
+                intent.putExtra("scope",scope);
                 startActivity(intent);
             }
         });
@@ -76,48 +79,60 @@ public class MessageShow extends Activity {
             @Override
             public void onClick(View v) {
                 flag = false;
+                int totalPage = Integer.parseInt(list.get(0).get("total").toString())/20;   //总页数
                 int num = (listView.getCount() - 1)/20 + 1;
-                loadMoreData(query,num);
+                if(totalPage < num){
+                    Toast toast = Toast.makeText(MessageShow.this,"已无数据,无法加载更多",Toast.LENGTH_SHORT);
+                    toast.show();
+                }else{
+                    loadMoreData(query,num);
+                }
             }
         });
         progressDialog = new ProgressDialog(this);
         refreshBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                executeProgram(query,"刷新中",1);
+                totalList.clear();
+                spinner.setSelection(2);
+                executeProgram(query,"刷新中",1,3000);
             }
         });
-        executeProgram(query,"加载中",1);
+        executeProgram(query,"加载中",1,3000);
         //spinner
         spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,int arg2, long arg3) {
-                Object item = arg0.getAdapter().getItem(arg2);
-
+                // Object item = arg0.getAdapter().getItem(arg2);
+                String item = objects[arg2].substring(0,4);
+                executeProgram(query,"按范围加载中",1,Integer.parseInt(item));
+                scope = item;
+                listView.refreshDrawableState();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
-
+                // TODO Auto-generated method stub
 
             }
 
         });
 
-        MySpinnerAdapter<String> spinnerAdapter = new MySpinnerAdapter<String>(
-                this, R.layout.spinner_item, R.id.spinner_item_content, objects);
-        spinnerAdapter.setDropDownViewResource(R.layout.spinner_item);
 
-        Log.d("Spinner", "create MySpinnerAdapter");
+        ArrayAdapter<CharSequence> spinnerAdapter = new ArrayAdapter<CharSequence>(
+                this,R.layout.spinner_item,R.id.spinner_item_content, objects);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_content);
 
-
+        Log.d("Spinner", "create ArrayAdapter");
 
         spinner.setAdapter(spinnerAdapter);
-        Log.d("Spinner", "set MySpinnerAdapter");
+        spinner.setSelection(2);
+        Log.d("Spinner", "set ArrayAdapter");
+
     }
-    public void executeProgram(String query,String progressDialogMessage,int page){
+    public void executeProgram(String query,String progressDialogMessage,int page,final int scope){
         final String finalQuery = query;
         final JsonUtil jsonUtil = new JsonUtil();
         final int finalPage = page;
@@ -134,16 +149,19 @@ public class MessageShow extends Activity {
                     protected Integer doInBackground(Integer... params) {
                         String jsonString;
                         try {
-                            jsonString = jsonUtil.getJson(finalQuery,Longitude,Latitude,finalPage);
+                            jsonString = jsonUtil.getJson(finalQuery,Longitude,Latitude,finalPage,scope);
                         } catch (IOException e) {
                             e.printStackTrace();
                             return 1;//代表网络有问题
                         }
                         try {
-                            list = jsonUtil.parseJson(jsonString);
+                            list = jsonUtil.parseJsonTwo(jsonString);
                         } catch (JSONException e) {
                             e.printStackTrace();
                             return 2;//代表json解析有问题
+                        }
+                        if(list == null){
+                            return 3;
                         }
                         return 0;  //To change body of implemented methods use File | Settings | File Templates.
                     }
@@ -156,6 +174,9 @@ public class MessageShow extends Activity {
                             toast.show();
                         }else if(integer == 2){
                             Toast toast = Toast.makeText(MessageShow.this,"无法解析数据",Toast.LENGTH_SHORT) ;
+                            toast.show();
+                        }else if(integer == 3){
+                            Toast toast = Toast.makeText(MessageShow.this,"范围内无数据,请更改查询方式",Toast.LENGTH_SHORT) ;
                             toast.show();
                         }else{
                             loadData();
@@ -184,11 +205,14 @@ public class MessageShow extends Activity {
 
     }
     public void loadData(){
-        for(int i=0;i<list.size();i++){
+        if(flag == true){
+            totalList.clear();
+        }
+        for(int i=1;i<list.size();i++){
             totalList.add(list.get(i));
         }
        if(flag == true){
-           simpleAdapter = new SimpleAdapter(this,totalList,R.layout.lvmessagecontent,new String []{"address","name","distance"},
+           simpleAdapter = new MySimpleAdapter(this,totalList,R.layout.lvmessagecontent,new String []{"address","name","distance"},
                    new int []{R.id.lvMessageTextView1,R.id.lvMessageTextView2,R.id.lvMessageTextView3});
             listView.setAdapter(simpleAdapter);
        }else{
@@ -196,62 +220,39 @@ public class MessageShow extends Activity {
        }
        flag = true;
     }
-    class MySpinnerAdapter<T> extends ArrayAdapter<T> {
-        private int dropDownViewResourceId;
-        private LayoutInflater inflater;
 
-        public MySpinnerAdapter(Context context, int textViewResourceId,
-                                T[] objects) {
-            super(context, textViewResourceId, objects);
-            init();
-        }
-
-        public MySpinnerAdapter(Context context, int resource,
-                                int textViewResourceId, T[] objects) {
-            super(context, resource, textViewResourceId, objects);
-            init();
-        }
-        public MySpinnerAdapter(Context context, int resource,
-                                int textViewResourceId) {
-            super(context, resource, textViewResourceId);
-            init();
-        }
-
-        public void setDropDownViewResource(int resource) {
-            super.setDropDownViewResource(resource);
-            dropDownViewResourceId = resource;
-        }
-
-        public void init() {
-            inflater = (LayoutInflater) getContext().getSystemService(
-                    Context.LAYOUT_INFLATER_SERVICE);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            return super.getView(position, convertView, parent);
-        }
-
-        @Override
-        public View getDropDownView(int position, View convertView,
-                                    ViewGroup parent) {
-
-            Log.d("Spinner", "getDropDownView at position " + position);
-
-            Object item = getItem(position);
-
-            LinearLayout dropDownItemView = (LinearLayout) inflater.inflate(dropDownViewResourceId,
-                    null);
-
-            TextView text1 = (TextView) dropDownItemView
-                    .findViewById(R.id.spinner_item_content);
-            text1.setText(item.toString());
-            return dropDownItemView;
-        }
-
-    }
     public void loadMoreData(String query,int page){
-        executeProgram(query,"加载更多中",page);
-        Log.e("aaaaaaaa",page + "-----------");
+        executeProgram(query,"加载更多中",page,3000);
+    }
+    class MySimpleAdapter extends  SimpleAdapter{
+        public MySimpleAdapter(Context context, List<? extends Map<String, ?>> data, int resource, String[] from, int[] to) {
+            super(context, data, resource, from, to);    //To change body of overridden methods use File | Settings | File Templates.
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            if(convertView == null){
+                convertView = getLayoutInflater().inflate(R.layout.lvmessagecontent,null);
+            }
+            final TextView textView = (TextView) convertView.findViewById(R.id.lvMessageTextView1);
+            convertView.setBackground(getResources().getDrawable(R.drawable.listbg));
+            convertView.setBackground(getResources().getDrawable(R.drawable.listbg));
+
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MessageShow.this,DetailMessage.class);
+                    intent.putExtra("address",totalList.get(position).get("address").toString());
+                    intent.putExtra("name",totalList.get(position).get("name").toString());
+                    intent.putExtra("tel",totalList.get(position).get("tel").toString());
+                    intent.putExtra("startLongitude",Longitude);
+                    intent.putExtra("startLatitude",Latitude);
+                    intent.putExtra("endLongitude",totalList.get(position).get("longitude").toString());
+                    intent.putExtra("endLatitude",totalList.get(position).get("latitude").toString());
+                    startActivity(intent);
+                }
+            });
+            return super.getView(position, convertView, parent);    //To change body of overridden methods use File | Settings | File Templates.
+        }
     }
 }

@@ -4,7 +4,8 @@
           android:versionCode="1"
           android:versionName="1.0">
     <uses-sdk android:minSdkVersion="16"/>
-    <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
+    <application
+            android:label="@string/app_name" android:icon="@drawable/ic_launcher">
         <activity android:name="MyActivity"
                   android:label="@string/app_name">
             <intent-filter>
@@ -16,6 +17,10 @@
         <activity android:name=".ListViewThree"></activity>
         <activity android:name=".MessageShow"></activity>
         <activity android:name=".MapShow"></activity>
+        <activity android:name=".WalkMap"></activity>
+        <activity android:name=".About"></activity>
+        <activity android:name=".Search"></activity>
+        <activity android:name=".DetailMessage"></activity>
         <service
                 android:name="com.baidu.location.f"
                 android:enabled="true"

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#ffffff"
+        >
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_title_bar"
+            android:layout_weight="3"
+            >
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
+                >
+            <ImageButton
+                    android:id="@+id/back_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00000000"
+                    android:src="@drawable/u16_normal"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    >
+            </ImageButton>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
+                >
+            <TextView
+                    android:id="@+id/text_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="详细信息"
+                    android:textColor="#ffffff"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    >
+            </TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                >
+
+            <ImageButton
+                    android:id="@+id/arrows_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00000000"
+                    android:src="@drawable/ic_action_route"
+                    android:layout_gravity="center"
+                    >
+            </ImageButton>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            >
+            <Button
+                    android:id="@+id/foot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00000000"
+                    android:text="步 行"
+                    android:textColor="#000000"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    >
+                    </Button>
+
+            <Button
+                    android:id="@+id/bus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="公 交"
+                    android:background="#00000000"
+                    android:textColor="#000000"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    >
+            </Button>
+
+            <Button
+                    android:id="@+id/car"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="驾 车"
+                    android:background="#00000000"
+                    android:textColor="#000000"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    >
+            </Button>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            >
+
+        <TextView
+                android:id="@+id/course_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#70000000"
+                android:text="全程约80.0m，耗时约10分钟"
+                android:textColor="#ffffff"
+                ></TextView>
+        </LinearLayout>
+
+
+    <LinearLayout
+            android:id="@+id/detailed_map"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="32"
+            >
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                />
+
+        <com.baidu.mapapi.map.MapView
+                android:id="@+id/bmapsView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:clickable="true"
+                />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            >
+        <TextView
+                android:id="@+id/course_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#70000000"
+                android:text="苏浙会馆（高新店）"
+                android:textSize="17dp"
+                android:textColor="#ffffff"
+                >
+                </TextView>
+
+        <TextView
+                android:id="@+id/course_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#70000000"
+                android:text="高新路附2号"
+                android:textColor="#ffffff"
+                >
+        </TextView>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+        >
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                >
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_phone"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+            >
+            </ImageView>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                >
+
+            <Button
+                    android:id="@+id/phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00000000"
+                    android:text="029-88322222"
+                    android:textSize="14dp"
+                    android:layout_gravity="center"
+                    >
+                    </Button>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

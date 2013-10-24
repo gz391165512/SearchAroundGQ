@@ -59,7 +59,7 @@
                 >
 
             <ImageButton
-                    android:id="@+id/arrows_button"
+                    android:id="@+id/detailGoToShow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/back_button_bg"
@@ -149,12 +149,20 @@
             <com.baidu.mapapi.map.MapView android:layout_width="fill_parent" android:layout_height="fill_parent"
                                           android:id="@+id/bdMapDetail">
             </com.baidu.mapapi.map.MapView>
+            <Button
+                    android:id="@+id/detailSavePicture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="20dip"
+                    android:background="@drawable/savapicture"
+                    android:text="截图" />
             <TextView
                     android:id="@+id/detailTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#70000000"
-                    android:text="全程约80.0m，耗时约10分钟"
                     android:layout_alignParentTop="true"
                     android:textColor="#ffffff"
                     ></TextView>
@@ -182,7 +190,7 @@
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:background="#10000000"
             android:gravity="center_vertical"
             >

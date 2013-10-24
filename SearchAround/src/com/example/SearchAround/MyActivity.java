@@ -62,12 +62,19 @@ public class MyActivity extends Activity {
                      @Override
                      public void onLocation(BDLocation bdLocation) {
                          addressTextView.setText(bdLocation.getAddrStr());
-//                         Log.e("BaiduMapDemo",""+bdLocation.getAddrStr());
+                         if(null == bdLocation.getAddrStr()) {
+                             addressTextView.setText("定位失败,请检查网络后重试");
+                         }
                      }
                  });
 
             }
         });
+        if(JsonUtil.latitude == 0){
+            addressTextView.setText("请定位");
+        }else{
+            addressTextView.setText(JsonUtil.address);
+        }
         listView1 = (ListView) findViewById(R.id.ListView1);
         lvOneText = new String [] {"餐饮服务","购物服务","生活服务","体育休闲服务","医疗保健服务","住宿服务","科教文化服务","交通设施服务","公共设施"};
         BaseAdapter baseAdapter = new BaseAdapter() {
@@ -119,4 +126,13 @@ public class MyActivity extends Activity {
         listView1.setAdapter(baseAdapter);
     }
 
+    @Override
+    protected void onResume() {
+        if(JsonUtil.latitude == 0){
+            addressTextView.setText("请定位");
+        }else{
+            addressTextView.setText(JsonUtil.address);
+        }
+        super.onResume();    //To change body of overridden methods use File | Settings | File Templates.
+    }
 }

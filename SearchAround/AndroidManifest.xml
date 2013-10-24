@@ -17,10 +17,10 @@
         <activity android:name=".ListViewThree"></activity>
         <activity android:name=".MessageShow"></activity>
         <activity android:name=".MapShow"></activity>
-        <activity android:name=".WalkMap"></activity>
         <activity android:name=".About"></activity>
         <activity android:name=".Search"></activity>
         <activity android:name=".DetailMessage"></activity>
+        <activity android:name=".ShowSavePicture"></activity>
         <service
                 android:name="com.baidu.location.f"
                 android:enabled="true"

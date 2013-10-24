@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical" android:background="#FFFFFF"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:background="@drawable/bg_title_bar" >
+        <ImageButton android:id="@+id/showSaveBackIBt" android:layout_width="44dp" android:layout_height="wrap_content"
+                     android:background="@drawable/back_button_bg" android:src="@drawable/ic_nav_back" android:layout_marginLeft="10dp">
+        </ImageButton>
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="1" android:gravity="center">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="16dp"
+                      android:text="我的收藏" android:textColor="#FFFFFF" android:textStyle="bold"></TextView>
+        </LinearLayout>
+        <TextView android:layout_width="44dp" android:layout_height="wrap_content"></TextView>
+    </LinearLayout>
+    <ImageSwitcher android:id="@+id/ImageSwitcher"  android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="1">
+    </ImageSwitcher>
+    <Gallery android:id="@+id/Gallery" android:layout_width="fill_parent" android:layout_height="wrap_content">
+    </Gallery>
+</LinearLayout>

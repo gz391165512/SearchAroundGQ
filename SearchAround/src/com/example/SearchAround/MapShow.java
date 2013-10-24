@@ -62,21 +62,6 @@ public class MapShow extends Activity {
         bMapManager =  Init.init(this,1);
         final String query = getIntent().getStringExtra("query");
         scope = getIntent().getStringExtra("scope");
-        bMapManager.init(StringKey,new MKGeneralListener() {
-            @Override
-            public void onGetNetworkState(int error) {
-                if (error == MKEvent.ERROR_NETWORK_CONNECT) {
-                    Toast.makeText(MapShow.this, "您的网络出错啦！", Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onGetPermissionState(int error) {
-                if (error == MKEvent.ERROR_PERMISSION_DENIED) {
-//                    Toast.makeText(MapShow.this, "请在 DemoApplication.java文件输入正确的授权Key！", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
         setContentView(R.layout.mapshow);
         mapView = (MapView) findViewById(R.id.bdMapView);
         layoutInflater = LayoutInflater.from(this);
@@ -231,12 +216,6 @@ public class MapShow extends Activity {
                     intent.putExtra("startLatitude",startLatitude);
                     intent.putExtra("endLongitude",list.get(i).get("longitude").toString());
                     intent.putExtra("endLatitude",list.get(i).get("latitude").toString());
-//                    Intent intent = new Intent(MapShow.this,WalkMap.class);
-//                    intent.putExtra("keyWord",poiOverlayMany.getItem(i).getTitle());
-//                    intent.putExtra("startLatitude",(int)(JsonUtil.latitude*1E6));
-//                    intent.putExtra("startLongitude",(int)(JsonUtil.longitude*1E6));
-//                    intent.putExtra("endLatitude",endLatitude);
-//                    intent.putExtra("endLongitude",endLongitude);
                     startActivity(intent);
                 }
             });

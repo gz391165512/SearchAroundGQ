@@ -52,13 +52,97 @@ public class ListViewThree extends Activity {
                 tittleValue = "咖啡厅";
             }
         }else if(positionOne == 1){
-
+            if(positionTwo == 0){
+                lvTwoText = new String [] {"购物中心","普通商城","免税品店"};
+                tittleValue = "商城";
+            }else if(positionTwo == 1){
+                lvTwoText = new String[] { "7-ELEVEN便利店","OK便利店"};
+                tittleValue = "便民商店/便利店";
+            }else if(positionTwo == 2){
+                lvTwoText = new String[] { "综合家电商场","国美","大中","苏宁","手机销售","数码电子","丰泽","镭射"};
+                tittleValue = "家电电子卖场";
+            }else if(positionTwo == 3){
+                lvTwoText = new String[] { "家福乐","沃尔玛","华润","北京华联","上海华联","麦德龙","万客隆","华堂","易初莲花","好又多","屈臣氏","乐购","惠康超市","百佳超市","万宁超市"};
+                tittleValue = "超级市场";
+            }else if(positionTwo == 4){
+                lvTwoText = new String[] { "花卉市场","宠物市场"};
+                tittleValue = "花鸟鱼虫市场";
+            }else if(positionTwo == 5){
+                lvTwoText = new String[] { "家具建材综合市场","家具城","建材五金市场","厨卫市场","布艺市场","灯具瓷器市场"};
+                tittleValue = "家居建材市场";
+            }else if(positionTwo == 6){
+                lvTwoText = new String[] { "小商品市场","旧货市场","农副产品市场","果品市场","蔬菜市场","水产海鲜市场"};
+                tittleValue = "综合市场";
+            }else if(positionTwo == 8){
+                lvTwoText = new String[] { "李宁专卖店","耐克专卖店","阿迪达斯专卖店","锐步专卖店","彪马专卖店","高尔夫专卖店","户外用品"};
+                tittleValue = "体育用品店";
+            }else if(positionTwo == 9){
+                lvTwoText = new String[] { "步行街"};
+                tittleValue = "特色商业街";
+            }else if(positionTwo == 10){
+                lvTwoText = new String[] { "品牌服装店","品牌鞋店","品牌皮具店"};
+                tittleValue = "服装鞋帽皮具店";
+            }else if(positionTwo == 11){
+                lvTwoText = new String[] { "古玩字画店","珠宝首饰工艺品","钟表店","眼镜店","书店","音像店","儿童用品店","自行车专卖店","礼品饰品店","烟酒专卖店","宠物用品店","摄影器材店","宝马生活方式"};
+                tittleValue = "专卖店";
+            }else if(positionTwo == 12){
+                lvTwoText = new String[] { "拍卖行","典当行"};
+                tittleValue = "特殊买卖场所";
+            }else if(positionTwo == 13){
+                lvTwoText = new String[] { "莎莎"};
+                tittleValue = "个人用品/化妆品店";
+            }
         }else if(positionOne == 2){
-
+            if(positionTwo == 2){
+                lvTwoText = new String [] {"飞机票代售点","火车票代售点","长途汽车票代售点","船票代售点","公交卡/月票代售点","公园景点售票处"};
+                tittleValue = "售票处";
+            }else if(positionTwo == 3){
+                lvTwoText = new String[] { "邮政速递"};
+                tittleValue = "邮局";
+            }else if(positionTwo == 5){
+                lvTwoText = new String[] { "中国电信营业厅","中国网通营业厅","中国移动营业厅","中国联通营业厅","中国铁通营业厅","中国卫通营业厅","和记电讯","数码通电讯","电讯盈科","中国移动万众/Peoples"};
+                tittleValue = "电讯营业厅";
+            }else if(positionTwo == 6){
+                lvTwoText = new String[] { "律师事务所","会计师事务所","评估事务所","审计事务所","认证事务所","专利事务所"};
+                tittleValue = "事务所";
+            }else if(positionTwo == 18){
+                lvTwoText = new String[] { "陵园","公墓","殡仪馆"};
+                tittleValue = "丧葬设施";
+            }
         }else if(positionOne == 3){
-
+            if(positionTwo == 0){
+                lvTwoText = new String [] {"综合体育馆","保龄球馆","网球场","篮球场馆","足球场","滑雪场","溜冰场","户外健身场所","海滨浴场","游泳馆","健身中心","乒乓球馆","台球厅","壁球场","橄榄球场","羽毛球场","跆拳道场馆"};
+                tittleValue = "运动场馆";
+            }else if(positionTwo == 1){
+                lvTwoText = new String[] { "高尔夫球场","高尔夫练习场"};
+                tittleValue = "高尔夫相关";
+            }else if(positionTwo == 2){
+                lvTwoText = new String[] { "夜总会","K T V","迪厅","酒吧","游戏厅","棋牌室","博彩中心","网吧"};
+                tittleValue = "娱乐场所";
+            }else if(positionTwo == 3){
+                lvTwoText = new String[] { "度假村","疗养院"};
+                tittleValue = "度假休养场所";
+            }else if(positionTwo == 4){
+                lvTwoText = new String[] { "游乐场","垂钓场","采摘园","露营地","水上活动中心"};
+                tittleValue = "休闲场所";
+            }else if(positionTwo == 5){
+                lvTwoText = new String[] { "电影院","音乐厅","剧场"};
+                tittleValue = "影剧院";
+            }
         }else if(positionOne == 4){
-
+            if(positionTwo == 0){
+                lvTwoText = new String [] {"三级甲等医院","卫生院"};
+                tittleValue = "综合医院";
+            }else if(positionTwo == 1){
+                lvTwoText = new String[] {"整形美容","口腔医院","眼科医院","耳鼻喉医院","胸科医院","骨科医院","肿瘤医院","脑科医院","妇科医院","精神科医院","传染科医院"};
+                tittleValue = "专科医院";
+            }else if(positionTwo == 5){
+                lvTwoText = new String[] { "药房","医疗保健用品"};
+                tittleValue = "医药保健相关";
+            }else if(positionTwo == 6){
+                lvTwoText = new String[] {"宠物诊所","兽医站"};
+                tittleValue = "动物医疗场所";
+            }
         }else if(positionOne == 5){
             if(positionTwo == 0){
                 lvTwoText = new String [] {"六星级宾馆","五星级宾馆","四星级宾馆","三星级宾馆","经济型连锁酒店"};

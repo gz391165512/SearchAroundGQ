@@ -43,6 +43,7 @@ public class JsonUtil {
         HttpClient httpClient = new DefaultHttpClient();
         HttpResponse httpResponse = httpClient.execute(httpGet);
         String jsonString = EntityUtils.toString(httpResponse.getEntity(),"UTF-8");
+        Log.e("aaaaaaaaaaaa",jsonString);
         return jsonString;
     }
     public List<HashMap<String,Object>> parseJsonTwo(String jsonString) throws JSONException{

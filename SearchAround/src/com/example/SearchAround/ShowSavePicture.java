@@ -39,8 +39,8 @@ public class ShowSavePicture extends Activity {
         gallery = (Gallery) findViewById(R.id.Gallery);
         imageSwitcher = (ImageSwitcher)findViewById(R.id.ImageSwitcher);
         showSaveBackIBt = (ImageButton) findViewById(R.id.showSaveBackIBt);
-        imageSwitcher.setInAnimation(this,android.R.anim.slide_in_left);
-        imageSwitcher.setOutAnimation(this, android.R.anim.slide_out_right);
+        imageSwitcher.setInAnimation(this,android.R.anim.fade_in);
+        imageSwitcher.setOutAnimation(this, android.R.anim.fade_out);
         showSaveBackIBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,20 +108,18 @@ public class ShowSavePicture extends Activity {
     private int refreshGallery(){
         File file = new File("/mnt/sdcard/gqmap");
         File [] files = file.listFiles();
-        Log.d("aaaaaaaa",files.length+ "");
-        if(files.length == 0){
+        if(null == files){
             Toast.makeText(ShowSavePicture.this,"还没收藏图片哦,请添加想保存的地图吧",Toast.LENGTH_SHORT).show();
+        }else{
+            if(files.length == 0){
+                Toast.makeText(ShowSavePicture.this,"还没收藏图片哦,请添加想保存的地图吧",Toast.LENGTH_SHORT).show();
+            }
+            imageList.clear();
+            for(int i = 0 ; i < files.length ; i++){
+                imageList.add(files[i].getPath()) ;
+            }
+            gallery.setAdapter(imageAdapter);
         }
-//        for (int i = 0; i < files.length; i++) {
-//            HashMap<String, Object> item = new HashMap<String, Object>();
-//            item.put("url",files[i].getPath());
-//            data.add(item);
-//        }
-        imageList.clear();
-        for(int i = 0 ; i < files.length ; i++){
-            imageList.add(files[i].getPath()) ;
-        }
-        gallery.setAdapter(imageAdapter);
         return imageList.size();
     }
     //    SimpleAdapter simpleAdapter = new SimpleAdapter(this,data,R.layout.showpicture,new String []{"url"});

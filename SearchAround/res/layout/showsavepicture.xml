@@ -17,6 +17,6 @@
     </LinearLayout>
     <ImageSwitcher android:id="@+id/ImageSwitcher"  android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="1">
     </ImageSwitcher>
-    <Gallery android:id="@+id/Gallery" android:layout_width="fill_parent" android:layout_height="wrap_content">
+    <Gallery android:id="@+id/Gallery" android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="#70000000">
     </Gallery>
 </LinearLayout>

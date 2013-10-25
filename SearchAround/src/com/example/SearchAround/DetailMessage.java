@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -60,6 +61,7 @@ public class DetailMessage extends Activity {
     private Button detailSavePicture;
     private MKMapViewListener mkMapViewListener = null;
     private ImageButton detailGoToShow;
+    private ImageButton detailPhoneIbt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +79,7 @@ public class DetailMessage extends Activity {
         driveRadioBtn = (RadioButton) findViewById(R.id.detailCar);
         detailSavePicture = (Button) findViewById(R.id.detailSavePicture);
         detailGoToShow = (ImageButton) findViewById(R.id.detailGoToShow);
+        detailPhoneIbt = (ImageButton) findViewById(R.id.detailPhoneIbt);
         detailAddress.setText(getIntent().getStringExtra("address"));
         detailName.setText(getIntent().getStringExtra("name"));
         endLongitude =  Double.parseDouble(getIntent().getStringExtra("endLongitude"));
@@ -111,16 +114,20 @@ public class DetailMessage extends Activity {
             public void onGetCurrentMap(Bitmap bitmap) {
                 int number = 0;
                 File fileList = new File("/mnt/sdcard/gqmap/");
-                File [] files = fileList.listFiles();
-                for(int i=0;i<files.length;i++){
-                    if(number<Integer.parseInt(files[i].getName().substring(0,1))){
-                        number = Integer.parseInt(files[i].getName().substring(0,1));
-                    }
-                }
-                number = number + 1;
                 File createDocument = new File("/mnt/sdcard/gqmap");
-                File file = new File("/mnt/sdcard/gqmap/" + number +".png");
+                File [] files = fileList.listFiles();
                 createDocument.mkdirs();
+                if(null == files){
+
+                }else{
+                    for(int i=0;i<files.length;i++){
+                        if(number<Integer.parseInt(files[i].getName().substring(0,1))){
+                            number = Integer.parseInt(files[i].getName().substring(0,1));
+                        }
+                    }
+                    number = number + 1;
+                }
+                File file = new File("/mnt/sdcard/gqmap/" + number +".png");
                 FileOutputStream out;
                 try{
                     out = new FileOutputStream(file);
@@ -181,7 +188,7 @@ public class DetailMessage extends Activity {
                 mapView.refresh();
                 mapController.zoomToSpan(maxLatitude - minLatitude, maxLongitude - minLongitude);
                 mapController.animateTo(new GeoPoint((maxLatitude + minLatitude)/2,(maxLongitude + minLongitude)/2));
-                calculateTime(mkTransitRouteResult.getPlan(0).getDistance());
+                calculateTime(mkTransitRouteResult.getPlan(0).getDistance(),mkTransitRouteResult.getPlan(0).getTime());
                 nodeIndex = 0;
             }
 
@@ -204,7 +211,7 @@ public class DetailMessage extends Activity {
                 mapController.zoomToSpan(maxLatitude - minLatitude, maxLongitude - minLongitude);
                 mapController.animateTo(new GeoPoint((maxLatitude + minLatitude) / 2, (maxLongitude + minLongitude) / 2));
                 mkRoute = mkDrivingRouteResult.getPlan(0).getRoute(0);
-                calculateTime(mkRoute.getDistance());
+                calculateTime(mkRoute.getDistance(), mkDrivingRouteResult.getPlan(0).getTime());
                 nodeIndex = -1;
             }
 
@@ -217,7 +224,6 @@ public class DetailMessage extends Activity {
                     Toast.makeText(DetailMessage.this, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 searchType = 2;        //是 步行
                 routeOverlay = new RouteOverlay(DetailMessage.this, mapView);
                 routeOverlay.setData(mkWalkingRouteResult.getPlan(0).getRoute(0));
@@ -228,7 +234,8 @@ public class DetailMessage extends Activity {
                 mapController.zoomToSpan(maxLatitude - minLatitude, maxLongitude - minLongitude);
                 mapController.animateTo(new GeoPoint((maxLatitude + minLatitude) / 2, (maxLongitude + minLongitude) / 2));
                 mkRoute = mkWalkingRouteResult.getPlan(0).getRoute(0);
-                calculateTime(mkRoute.getDistance());
+                Log.e("aaaaaaaaaaaa","in");
+                calculateTime(mkRoute.getDistance(), mkWalkingRouteResult.getPlan(0).getTime());
                 nodeIndex = -1;
             }
 
@@ -293,6 +300,18 @@ public class DetailMessage extends Activity {
                 finish();
             }
         });
+        detailPhoneIbt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(detailPhone.getText().equals("暂无号码")){
+                    Toast toast = Toast.makeText(DetailMessage.this,"无号码,无法拨打",Toast.LENGTH_SHORT);
+                    toast.show();
+                }else{
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+detailPhone.getText()));
+                    startActivity(intent);
+                }
+            }
+        });
         detailSavePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -313,7 +332,7 @@ public class DetailMessage extends Activity {
             public void run() {
                 mapController.animateTo(startPoint);
             }
-        }, 2000);
+        }, 500);
         Drawable startTop = getResources().getDrawable(R.drawable.ic_loc_from);
         Drawable centerIop = getResources().getDrawable(R.drawable.u22_normal);
         Drawable endTop = getResources().getDrawable(R.drawable.ic_loc_to);
@@ -327,6 +346,13 @@ public class DetailMessage extends Activity {
         startOverlay.addItem(overlayItemStart);
         endOverlay.addItem(overlayItemEnd);
         mapView.getOverlays().add(centerOverlay);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                walkRadioBtn.performClick();
+            }
+        },2000);
+
 //        mapView.getOverlays().add(startOverlay);
 //        mapView.getOverlays().add(endOverlay);
     }
@@ -346,21 +372,14 @@ public class DetailMessage extends Activity {
             mkSearch.walkingSearch("西安", stNode, "西安", enNode);
         }
     }
-    public void calculateTime(int totalDistance){
+    public void calculateTime(int totalDistance,int totalTime){
         String time = "";
         int hours = 0;
         int minutes = 0;
         int seconds = 0;
-        if(searchType == 0){
-            seconds = totalDistance*10/55 + 1;
-        }else if(searchType == 1){
-            seconds = totalDistance*10/33 + 1;
-        }else if(searchType == 2){
-            seconds = totalDistance/2 + 1;
-        }
-        if(seconds >= 60){
-            minutes = seconds/60;
-            seconds = seconds%60;
+        if(totalTime >= 60){
+            minutes = totalTime/60;
+            seconds = totalTime%60;
             time = minutes +"分" + seconds + "秒";
             if(minutes>=60){
                 hours = minutes/60;
@@ -368,7 +387,7 @@ public class DetailMessage extends Activity {
                 time = hours + "小时" + minutes +"分" + seconds + "秒";
             }
         }else{
-            time = seconds + "秒";
+            time = totalTime + "秒";
         }
         detailTime.setText("全程约" + totalDistance +"m，耗时约"+ time);
     }

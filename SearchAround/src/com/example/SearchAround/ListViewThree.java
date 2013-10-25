@@ -196,7 +196,8 @@ public class ListViewThree extends Activity {
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = getLayoutInflater().inflate(R.layout.lvonecontent,parent,false);     //!!!!!!!!
                 TextView textView = (TextView) view.findViewById(R.id.lvOneTextView);
-                view.setBackground(getResources().getDrawable(R.drawable.listbg));
+//                view.setBackground(getResources().getDrawable(R.drawable.listbg));
+                view.setBackgroundDrawable(getResources().getDrawable(R.drawable.listbg));
                 Button button = (Button) view.findViewById(R.id.lvOneButton);
                 textView.setText(lvTwoText[position]);
                 textView.setTextColor(0xFF000000);

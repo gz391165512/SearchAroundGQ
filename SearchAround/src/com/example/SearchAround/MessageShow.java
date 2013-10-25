@@ -65,6 +65,7 @@ public class MessageShow extends Activity {
         listView = (ListView) findViewById(R.id.lvMessage);
         View view = getLayoutInflater().inflate(R.layout.footview, null);
         listView.addFooterView(view);
+        listView.setCacheColorHint(0);
         final String query = getIntent().getStringExtra("keyValue");
         messageTextView.setText(query);
         changeBtn.setOnClickListener(new View.OnClickListener() {
@@ -247,8 +248,8 @@ public class MessageShow extends Activity {
                 convertView = getLayoutInflater().inflate(R.layout.lvmessagecontent,null);
             }
             final TextView textView = (TextView) convertView.findViewById(R.id.lvMessageTextView1);
-            convertView.setBackground(getResources().getDrawable(R.drawable.listbg));
-            convertView.setBackground(getResources().getDrawable(R.drawable.listbg));
+//            convertView.setBackground(getResources().getDrawable(R.drawable.listbg));
+            convertView.setBackgroundDrawable(getResources().getDrawable(R.drawable.listbg));
 
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override

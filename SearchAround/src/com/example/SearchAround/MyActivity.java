@@ -97,7 +97,8 @@ public class MyActivity extends Activity {
             public View getView(int position, View convertView, ViewGroup parent) {
                 final int positionTemp = position;
                 View view = getLayoutInflater().inflate(R.layout.lvonecontent,parent,false);     //!!!!!!!!
-                view.setBackground(getResources().getDrawable(R.drawable.listbg));
+//                view.setBackground(getResources().getDrawable(R.drawable.listbg));
+                view.setBackgroundDrawable(getResources().getDrawable(R.drawable.listbg));
                 TextView textView = (TextView) view.findViewById(R.id.lvOneTextView);
                 textView.setText(lvOneText[position]);
                 textView.setTextColor(0xFF000000);

@@ -54,6 +54,7 @@ public class Search extends Activity {
         View view = getLayoutInflater().inflate(R.layout.footview, null);
         listView.addFooterView(view);
         footView = (LinearLayout)view;
+        listView.setCacheColorHint(0);
         footView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,7 +95,7 @@ public class Search extends Activity {
                     protected Integer doInBackground(Integer... params) {
                         String jsonString;
                         try {
-                            jsonString = jsonUtil.getJson(query,Longitude,Latitude,page,3000);
+                            jsonString = jsonUtil.getJson(query,Longitude,Latitude,page,30000);
                         } catch (IOException e) {
                             e.printStackTrace();
                             return 1;//代表网络有问题
@@ -173,9 +174,8 @@ public class Search extends Activity {
                 convertView = getLayoutInflater().inflate(R.layout.lvmessagecontent,null);
             }
             final TextView textView = (TextView) convertView.findViewById(R.id.lvMessageTextView1);
-            convertView.setBackground(getResources().getDrawable(R.drawable.listbg));
-            convertView.setBackground(getResources().getDrawable(R.drawable.listbg));
-
+//            convertView.setBackground(getResources().getDrawable(R.drawable.listbg));
+            convertView.setBackgroundDrawable(getResources().getDrawable(R.drawable.listbg));
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

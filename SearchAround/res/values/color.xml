@@ -2,4 +2,7 @@
 <resources>
     <drawable name="black">#DD000000</drawable>
     <drawable name="transparencyBlack">#70000000</drawable>
+    <drawable name="white">#FFFFFFFF</drawable>
+    <drawable name="transparency">#00000000</drawable>
+    <drawable name="moreTransparencyBlack">#40000000</drawable>
 </resources>
